@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07090f">
+  <title>ICELINE PERFORMANCE – Dienstregelwerk</title>
+  <meta name="description" content="Internes Dienstregelwerk für Mitarbeiter von ICELine Performance.">
+  <style>
+    :root{
+      --bg:#05070d; --panel:#0c111b; --panel2:#111827; --line:#263246;
+      --ice:#73dcff; --purple:#9b5cff; --text:#f4f7fb; --muted:#aab4c5;
+      --accent:#d8eaff; --danger:#ff6680;
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{
+      margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%,rgba(58,175,255,.14),transparent 28%),
+        radial-gradient(circle at 85% 12%,rgba(155,92,255,.14),transparent 28%),
+        linear-gradient(180deg,#05070d,#080c14 55%,#05070d);
+      line-height:1.65;
+    }
+    a{color:inherit}
+    .wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+    header{
+      position:sticky;top:0;z-index:20;background:rgba(5,7,13,.88);
+      backdrop-filter:blur(16px);border-bottom:1px solid rgba(115,220,255,.18)
+    }
+    .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.08em}
+    .brand img{width:44px;height:44px;object-fit:contain;border-radius:12px}
+    .brand span{font-size:14px}
+    nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    nav a{
+      text-decoration:none;color:var(--muted);font-size:13px;font-weight:700;
+      padding:8px 10px;border-radius:10px
+    }
+    nav a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+    .hero{padding:70px 0 44px}
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:36px;align-items:center}
+    .badge{
+      display:inline-flex;padding:7px 11px;border:1px solid rgba(115,220,255,.25);
+      background:rgba(115,220,255,.07);border-radius:999px;color:var(--ice);
+      font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase
+    }
+    h1{
+      margin:16px 0 12px;font-size:clamp(42px,7vw,76px);line-height:.98;letter-spacing:-.055em
+    }
+    .gradient{background:linear-gradient(90deg,#dff7ff 0%,#73dcff 35%,#b56cff 78%,#e8d8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:18px;color:var(--muted);max-width:680px}
+    .hero-logo{
+      border:1px solid var(--line);border-radius:28px;padding:18px;
+      background:linear-gradient(145deg,rgba(115,220,255,.08),rgba(155,92,255,.08));
+      box-shadow:0 20px 70px rgba(0,0,0,.4)
+    }
+    .hero-logo img{display:block;width:100%;border-radius:20px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+    .btn{
+      text-decoration:none;border:1px solid var(--line);padding:11px 15px;border-radius:12px;
+      background:#0e1521;font-weight:800;font-size:14px
+    }
+    .btn.primary{border-color:rgba(115,220,255,.45);background:linear-gradient(135deg,rgba(115,220,255,.16),rgba(155,92,255,.16))}
+    section{padding:28px 0}
+    .section-title{font-size:30px;margin:0 0 8px;letter-spacing:-.03em}
+    .section-sub{margin:0 0 20px;color:var(--muted)}
+    .toc{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 12px
+    }
+    .toc a{
+      text-decoration:none;border:1px solid var(--line);background:rgba(13,17,27,.76);
+      padding:13px 14px;border-radius:14px;color:var(--accent);font-weight:800;font-size:14px
+    }
+    .toc a:hover{border-color:rgba(115,220,255,.5);transform:translateY(-1px)}
+    .rules{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{
+      background:linear-gradient(180deg,rgba(13,17,27,.94),rgba(9,13,21,.94));
+      border:1px solid var(--line);border-radius:18px;padding:22px;
+      box-shadow:0 14px 40px rgba(0,0,0,.16)
+    }
+    .card:target{border-color:rgba(115,220,255,.72);box-shadow:0 0 0 2px rgba(115,220,255,.08),0 14px 45px rgba(0,0,0,.2)}
+    .card h3{margin:0 0 13px;font-size:20px;line-height:1.25}
+    .card ul{margin:0;padding-left:22px;color:#dce4ef}
+    .card li{margin:8px 0}
+    .card strong{color:#fff}
+    .wide{grid-column:1/-1}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .step{border:1px solid var(--line);border-radius:14px;padding:15px;background:rgba(255,255,255,.025)}
+    .step b{display:block;font-size:15px;margin-bottom:3px}
+    .hierarchy{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:16px}
+    .rank{width:min(500px,100%);text-align:center;padding:11px;border:1px solid var(--line);border-radius:12px;background:#0e1521;font-weight:800}
+    .arrow{color:var(--ice);font-weight:900}
+    .notice{
+      border:1px solid rgba(255,102,128,.35);background:rgba(255,102,128,.07);
+      border-radius:18px;padding:20px;margin-top:16px
+    }
+    .notice h3{margin-top:0}
+    footer{border-top:1px solid var(--line);margin-top:44px;padding:28px 0 50px;color:var(--muted);text-align:center}
+    .top{display:block;text-align:center;margin-top:20px;color:var(--ice);text-decoration:none;font-weight:800}
+    @media(max-width:850px){
+      .hero-grid,.rules{grid-template-columns:1fr}
+      .wide{grid-column:auto}.toc{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}
+      nav{display:none}
+    }
+    @media(max-width:520px){
+      .wrap{width:min(100% - 22px,1120px)}.hero{padding-top:42px}.toc{grid-template-columns:1fr}
+      .card{padding:18px}.hero-logo{padding:10px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" style="text-decoration:none">
+      <img src="logo.png" alt="ICELINE PERFORMANCE Logo"><span>ICELINE PERFORMANCE</span>
+    </a>
+    <nav>
+      <a href="#regelwerk">Regelwerk</a>
+      <a href="#abschleppdienst">Abschleppdienst</a>
+      <a href="#hierarchie">Hierarchie</a>
+      <a href="#verantwortung">Verantwortung</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="badge">❄️ Internes Dienstregelwerk</span>
+        <h1><span class="gradient">ICELINE</span><br>PERFORMANCE</h1>
+        <p class="lead">Willkommen im Team von <strong>ICELine Performance</strong>. Damit unser Werkstattbetrieb professionell, fair und reibungslos funktioniert, gelten für alle Mitarbeiter die folgenden Dienstregeln.</p>
+        <div class="actions">
+          <a class="btn primary" href="#regelwerk">📋 Regelwerk öffnen</a>
+          <a class="btn" href="#hierarchie">👔 Hierarchie ansehen</a>
+        </div>
+      </div>
+      <div class="hero-logo"><img src="logo.png" alt="ICELINE PERFORMANCE"></div>
+    </div>
+  </section>
+
+  <section id="regelwerk">
+    <div class="wrap">
+      <h2 class="section-title">🔧 Dienstregelwerk für Mitarbeiter</h2>
+      <p class="section-sub">Alle nachfolgenden Regeln basieren auf dem bereitgestellten Dienstregelwerk.</p>
+      <div class="toc">
+        <a href="#regel-1">👔 1. Auftreten & Verhalten</a>
+        <a href="#regel-2">🕐 2. Dienstbeginn & Dienstende</a>
+        <a href="#regel-3">🔧 3. Werkstattbetrieb</a>
+        <a href="#regel-4">🚗 4. Kunden & Termine</a>
+        <a href="#regel-5">🚨 5. Abschleppdienst & Dispatch</a>
+        <a href="#regel-6">📞 6. Kommunikation</a>
+        <a href="#regel-7">🛠️ 7. Reparaturen & Arbeiten</a>
+        <a href="#regel-8">💰 8. Rechnungen & Zahlungen</a>
+        <a href="#regel-9">👤 9. Kundenakten & Datenschutz</a>
+        <a href="#regel-10">📸 10. Social Media & Bilder</a>
+        <a href="#regel-11">🧹 11. Ordnung & Sauberkeit</a>
+        <a href="#regel-12">🚪 12. Werkstatttore & Sicherheit</a>
+        <a href="#regel-13">🚭 13. Rauchverbot</a>
+        <a href="#regel-14">👟 14. Sicherheit & Arbeitskleidung</a>
+        <a href="#regel-15">📦 15. Lager & Material</a>
+        <a href="#regel-16">📱 16. Handy & private Aktivitäten</a>
+        <a href="#regel-17">⚠️ 17. Verstöße gegen Dienstregeln</a>
+        <a href="#regel-18">🚨 18. Abschleppdienst</a>
+        <a href="#hierarchie">📋 20. Grundsatz der Hierarchie</a>
+        <a href="#verantwortung">⚠️ 21. Verantwortung</a>
+      </div>
+
+      <div class="rules">
+        <article class="card" id="regel-1"><h3>👔 1. Auftreten & Verhalten</h3><ul>
+          <li>Jeder Mitarbeiter repräsentiert <strong>ICELine Performance</strong> und hat sich dementsprechend zu verhalten.</li>
+          <li>Kunden und Kollegen sind jederzeit <strong>respektvoll und freundlich</strong> zu behandeln.</li>
+          <li>Beleidigungen, Provokationen, Streitigkeiten oder respektloses Verhalten gegenüber Kunden oder Kollegen sind untersagt.</li>
+          <li>Interne Streitigkeiten werden nicht vor Kunden ausgetragen.</li>
+          <li>Probleme innerhalb des Teams werden sachlich und intern mit der zuständigen Leitung geklärt.</li>
+          <li>Während des Dienstes ist ein <strong>professionelles Auftreten</strong> Pflicht.</li>
+        </ul></article>
+
+        <article class="card" id="regel-2"><h3>🕐 2. Dienstbeginn & Dienstende</h3><ul>
+          <li>Beim Dienstantritt muss sich der Mitarbeiter ordnungsgemäß <strong>an- bzw. in den Dienst melden</strong>.</li>
+          <li>Während des Dienstes ist die vorgesehene Arbeitskleidung zu tragen.</li>
+          <li>Der Dienst darf nicht ohne Abmeldung bei einem Vorgesetzten verlassen werden.</li>
+          <li>Wer den Dienst vorzeitig beenden muss, meldet sich bei der zuständigen Leitung ab.</li>
+          <li>Mitarbeiter sollen während ihrer Dienstzeit für Kunden und Kollegen erreichbar sein.</li>
+        </ul></article>
+
+        <article class="card" id="regel-3"><h3>🔧 3. Werkstattbetrieb</h3><ul>
+          <li>Die Werkstatt ist während des Dienstes ordentlich und sauber zu halten.</li>
+          <li>Werkzeuge und Arbeitsmaterialien sind nach der Verwendung wieder an ihren vorgesehenen Platz zu bringen.</li>
+          <li>Fahrzeuge von Kunden sind mit größter Sorgfalt zu behandeln.</li>
+          <li>Fahrzeuge dürfen nur mit Zustimmung bzw. im Rahmen des jeweiligen Auftrags bewegt werden.</li>
+          <li>Schäden an Kundenfahrzeugen sind unverzüglich der Werkstattleitung zu melden.</li>
+          <li>Die Werkstatt darf nicht unnötig blockiert oder als Aufenthaltsbereich genutzt werden.</li>
+        </ul></article>
+
+        <article class="card" id="regel-4"><h3>🚗 4. Kunden & Termine</h3><ul>
+          <li>Kunden werden grundsätzlich nach der <strong>Reihenfolge ihrer bestätigten Termine</strong> bearbeitet.</li>
+          <li>Es gilt: <strong>„Wer zuerst kommt, mahlt zuerst.“</strong></li>
+          <li>Mitarbeiter dürfen Kunden nicht ohne nachvollziehbaren Grund bevorzugen.</li>
+          <li>Termine dürfen nur entsprechend der bestehenden Terminplanung angenommen werden.</li>
+          <li>Bei Unklarheiten bezüglich eines Auftrags ist die Werkstattleitung zu kontaktieren.</li>
+          <li>Kunden werden freundlich über Wartezeiten oder Verzögerungen informiert.</li>
+        </ul></article>
+
+        <article class="card" id="regel-5"><h3>🚨 5. Abschleppdienst & Dispatch</h3><ul>
+          <li><strong>Abschleppaufträge haben Vorrang</strong> vor normalen Werkstattaufträgen.</li>
+          <li>Eingehende Abschleppaufträge sind zeitnah über den vorgesehenen <strong>Dispatch</strong> zu bearbeiten.</li>
+          <li>Der zuständige Mitarbeiter meldet sich beim Dispatch, sobald er den Auftrag übernimmt.</li>
+          <li>Nach Abschluss des Einsatzes ist der Auftrag entsprechend zu dokumentieren.</li>
+          <li>Während eines aktiven Abschleppauftrags ist unnötiges Unterbrechen des Einsatzes zu vermeiden.</li>
+          <li>Bei mehreren gleichzeitig eingehenden Aufträgen entscheidet die zuständige Leitung über die Verteilung.</li>
+        </ul></article>
+
+        <article class="card" id="regel-6"><h3>📞 6. Kommunikation</h3><ul>
+          <li>Der interne Funk bzw. die vorgesehenen Kommunikationswege sind während des Dienstes regelmäßig zu beachten.</li>
+          <li>Wichtige Informationen an andere Mitarbeiter sind vollständig und verständlich weiterzugeben.</li>
+          <li>Bei Problemen oder außergewöhnlichen Situationen ist die Leitung zu informieren.</li>
+          <li>Kundeninformationen werden <strong>nicht unnötig an außenstehende Personen weitergegeben</strong>.</li>
+          <li>Interne Angelegenheiten der Werkstatt bleiben innerhalb des Teams.</li>
+        </ul></article>
+
+        <article class="card" id="regel-7"><h3>🛠️ 7. Reparaturen & Arbeiten</h3><ul>
+          <li>Arbeiten an Kundenfahrzeugen dürfen nur im Rahmen des jeweiligen Auftrags durchgeführt werden.</li>
+          <li>Zusätzliche Arbeiten müssen vorher mit dem Kunden bzw. der zuständigen Person abgesprochen werden.</li>
+          <li>Mitarbeiter dürfen keine eigenmächtigen Preisänderungen oder kostenlosen Leistungen vergeben.</li>
+          <li>Bei technischen Problemen oder fehlenden Ersatzteilen ist die Leitung zu informieren.</li>
+          <li>Nicht verfügbare Leistungen dürfen Kunden nicht trotzdem zugesagt werden.</li>
+          <li>Nach Abschluss der Arbeiten ist das Fahrzeug ordentlich zu hinterlassen.</li>
+        </ul></article>
+
+        <article class="card" id="regel-8"><h3>💰 8. Rechnungen & Zahlungen</h3><ul>
+          <li>Rechnungen müssen korrekt und entsprechend der festgelegten Preise erstellt werden.</li>
+          <li>Mitarbeiter dürfen sich selbst oder anderen Personen <strong>keine ungerechtfertigten Rabatte</strong> geben.</li>
+          <li>Kostenlose Arbeiten sind nur mit Genehmigung eines entsprechend befugten Mitarbeiters erlaubt.</li>
+          <li>Unstimmigkeiten bei Rechnungen sind unverzüglich der Leitung zu melden.</li>
+          <li>Rechnungen sollten korrekt in der Website eingetragen werden, sodass nichts fehlt.</li>
+        </ul></article>
+
+        <article class="card" id="regel-9"><h3>👤 9. Kundenakten & Datenschutz</h3><ul>
+          <li>Kundenakten sind vertraulich zu behandeln.</li>
+          <li>Persönliche Informationen von Kunden dürfen nicht an Dritte weitergegeben werden.</li>
+          <li>Fotos und andere Kundendaten dürfen ausschließlich für den vorgesehenen Zweck verwendet werden.</li>
+          <li>Kundenakten dürfen nicht ohne dienstlichen Grund eingesehen oder verändert werden.</li>
+          <li>Interne Kundendaten dürfen nicht außerhalb der dafür vorgesehenen Systeme gespeichert oder weitergegeben werden.</li>
+        </ul></article>
+
+        <article class="card" id="regel-10"><h3>📸 10. Social Media & Bilder</h3><ul>
+          <li>Fotos aus der Werkstatt dürfen grundsätzlich nur im Rahmen der vorgesehenen Kanäle veröffentlicht werden.</li>
+          <li>Auf Bildern dürfen keine vertraulichen Kundeninformationen oder internen Daten sichtbar sein.</li>
+          <li>Bei Kundenfahrzeugen ist darauf zu achten, dass keine privaten Informationen unnötig veröffentlicht werden.</li>
+          <li>Veröffentlichungen im Namen von <strong>ICELine Performance</strong> erfolgen nur über dafür freigegebene Mitarbeiter.</li>
+        </ul></article>
+
+        <article class="card" id="regel-11"><h3>🧹 11. Ordnung & Sauberkeit</h3><p>Nach jedem Auftrag ist darauf zu achten, dass:</p><ul>
+          <li>🔧 Werkzeuge zurückgeräumt werden</li><li>🗑️ Müll entsorgt wird</li><li>🛢️ Flüssigkeiten ordnungsgemäß behandelt werden</li><li>🚗 Fahrzeuge ordentlich abgestellt werden</li><li>🧽 Arbeitsbereiche sauber hinterlassen werden</li>
+        </ul><p><strong>Eine saubere Werkstatt ist die Visitenkarte von ICELine Performance.</strong></p></article>
+
+        <article class="card" id="regel-12"><h3>🚪 12. Werkstatttore & Sicherheit</h3><ul>
+          <li>Die Werkstatttore bleiben grundsätzlich geschlossen.</li>
+          <li>Ein Tor wird nur geöffnet, wenn ein Fahrzeug auf Anweisung eines Mitarbeiters in die Werkstatt gebracht oder herausgefahren wird.</li>
+          <li>Unbefugte Personen dürfen nicht ohne Genehmigung in den Werkstattbereich gelangen.</li>
+          <li>Kunden bleiben während der Arbeiten in den vorgesehenen Wartebereichen.</li>
+          <li>Sicherheitsvorschriften sind jederzeit einzuhalten.</li>
+        </ul></article>
+
+        <article class="card" id="regel-13"><h3>🚭 13. Rauchverbot</h3><ul>
+          <li>Im gesamten Gebäude gilt <strong>Rauchverbot</strong>.</li>
+          <li>Mitarbeiter dürfen ausschließlich außerhalb des Gebäudes bzw. im vorgesehenen Bereich rauchen.</li>
+          <li>Kunden sind ebenfalls auf das Rauchverbot hinzuweisen.</li>
+        </ul></article>
+
+        <article class="card" id="regel-14"><h3>👟 14. Sicherheit & Arbeitskleidung</h3><ul>
+          <li>Während des Dienstes ist die vorgeschriebene Arbeitskleidung zu tragen.</li>
+          <li>In der Werkstatt ist geeignetes Schuhwerk Pflicht.</li>
+          <li>Mitarbeiter haben auf ihre eigene Sicherheit sowie die Sicherheit anderer Personen zu achten.</li>
+          <li>Gefährliche Situationen sind unverzüglich der Leitung zu melden.</li>
+        </ul></article>
+
+        <article class="card" id="regel-15"><h3>📦 15. Lager & Material</h3><ul>
+          <li>Ersatzteile, Öl und sonstige Materialien dürfen nicht ohne Genehmigung privat verwendet oder entnommen werden.</li>
+          <li>Lieferengpässe sind der Leitung zu melden.</li>
+          <li>Der Lagerbestand ist sorgfältig zu behandeln.</li>
+          <li>Beschädigte oder fehlende Materialien sind unverzüglich zu melden.</li>
+        </ul></article>
+
+        <article class="card" id="regel-16"><h3>📱 16. Handy & private Aktivitäten</h3><ul>
+          <li>Private Telefonate, Spiele oder andere private Aktivitäten sind während der Arbeitszeit auf ein notwendiges Minimum zu beschränken.</li>
+          <li>Während Kunden bedient werden, hat der Kunde Vorrang vor privaten Gesprächen.</li>
+          <li>Das Handy darf für dienstliche Zwecke verwendet werden.</li>
+        </ul></article>
+
+        <article class="card" id="regel-17"><h3>⚠️ 17. Verstöße gegen Dienstregeln</h3><p>Bei Verstößen gegen das Dienstregelwerk können je nach Schwere des Verstoßes folgende Maßnahmen erfolgen:</p>
+          <div class="steps">
+            <div class="step"><b>⚠️ Verwarnung</b></div>
+            <div class="step"><b>📝 Abmahnung</b></div>
+            <div class="step"><b>⏸️ Dienstsperre</b></div>
+            <div class="step"><b>📉 Rückstufung</b></div>
+            <div class="step"><b>❌ Kündigung / Entfernung aus der Fraktion</b></div>
+          </div>
+          <div class="notice"><strong>Bei besonders schweren Verstößen kann eine sofortige Entfernung aus dem Team erfolgen.</strong></div>
+        </article>
+
+        <article class="card wide" id="regel-18"><h3>🚨 18. ABSCHLEPPDIENST</h3><p>Der Abschleppdienst kann je nach Personalstärke von eigenen Mitarbeitern oder Mechanikern übernommen werden.</p>
+          <h4>🚨 Abschleppleitung</h4><ul>
+            <li>Koordination des Abschleppdienstes</li><li>Verteilung von Abschleppaufträgen</li><li>Kontrolle der Einsätze</li><li>Organisation der Abschleppfahrzeuge</li><li>Ansprechpartner bei Problemen</li>
+          </ul>
+          <h4>🚨 Abschleppfahrer</h4><ul>
+            <li>Annahme und Durchführung von Abschleppaufträgen</li><li>sichere Bergung und Beförderung von Fahrzeugen</li><li>Rückmeldung an den Dispatch</li><li>ordnungsgemäße Dokumentation des Einsatzes</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="hierarchie">
+    <div class="wrap">
+      <div class="card">
+        <h2 class="section-title">📋 20. GRUNDSATZ DER HIERARCHIE</h2>
+        <p>Grundsätzlich gilt:</p>
+        <div class="hierarchy">
+          <div class="rank">Geschäftsführung</div><div class="arrow">↓</div>
+          <div class="rank">Stellvertretende Geschäftsführung</div><div class="arrow">↓</div>
+          <div class="rank">Werkstattleitung</div><div class="arrow">↓</div>
+          <div class="rank">Meister</div><div class="arrow">↓</div>
+          <div class="rank">Mechaniker</div><div class="arrow">↓</div>
+          <div class="rank">Junior Mechaniker</div><div class="arrow">↓</div>
+          <div class="rank">Auszubildender</div>
+        </div>
+        <p>Anweisungen werden grundsätzlich innerhalb der Hierarchie weitergegeben.</p>
+        <p>Ein Mitarbeiter kann sich bei einer Entscheidung jederzeit an einen höheren Rang wenden, wenn eine Angelegenheit nicht eindeutig geklärt werden kann.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="verantwortung">
+    <div class="wrap">
+      <div class="card">
+        <h2 class="section-title">⚠️ 21. VERANTWORTUNG</h2>
+        <p>Jeder Mitarbeiter trägt Verantwortung für die ihm übertragenen Aufgaben.</p>
+        <ul>
+          <li>Aufträge sind gewissenhaft auszuführen.</li>
+          <li>Fehler sind ehrlich und unverzüglich zu melden.</li>
+          <li>Probleme dürfen nicht vertuscht werden.</li>
+          <li>Schäden an Kundenfahrzeugen müssen sofort gemeldet werden.</li>
+          <li>Interne Informationen dürfen nicht nach außen getragen werden.</li>
+          <li>Mitarbeiter dürfen ihre Befugnisse nicht ausnutzen.</li>
+        </ul>
+        <p><strong>Ein höherer Rang bedeutet mehr Verantwortung – nicht mehr Rechte gegenüber Kunden oder Kollegen.</strong></p>
+        <p>Egal welcher Rang:</p>
+        <p style="font-size:20px;font-weight:900">Respekt • Zusammenhalt • Verantwortung • Professionalität</p>
+      </div>
+      <div class="notice">
+        <h3>❤️ Unser Team – Unsere Werkstatt</h3>
+        <p>Wir wollen bei ICELine Performance nicht einfach nur eine Werkstatt sein.</p>
+        <p>Wir sind ein Team, das gemeinsam dafür sorgt, dass Kunden zufrieden sind und der Betrieb funktioniert.</p>
+        <p><strong>Respekt gegenüber Kunden.<br>Respekt gegenüber Kollegen.<br>Sorgfalt bei jedem Fahrzeug.<br>Zusammenhalt im Team.</strong></p>
+      </div>
+      <a class="top" href="#top">↑ Nach oben</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">❄️ ICELINE PERFORMANCE · Internes Dienstregelwerk für Mitarbeiter</div>
+</footer>
+</body>
+</html>
